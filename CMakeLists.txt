@@ -25,6 +25,8 @@ set(HEADERS
 	${CMAKE_SOURCE_DIR}/zraw-container/ZrawNewExtractor.hpp
 	${CMAKE_SOURCE_DIR}/zraw-container/ZrawProcessingModel.hpp
 	${CMAKE_SOURCE_DIR}/tiny-mov-library/TinyMovFileLibrary.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/MovAvInfoDetect.hpp
+
 )
 
 # Include directories
