@@ -15,7 +15,16 @@ endif()
 
 # Define source files
 set(SOURCES
-    ${CMAKE_SOURCE_DIR}/../src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+
+)
+
+set(HEADERS
+    ${CMAKE_SOURCE_DIR}/zraw-container/ZrawConverter.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/ZrawConverterThread.hpp 
+	${CMAKE_SOURCE_DIR}/zraw-container/ZrawNewExtractor.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/ZrawProcessingModel.hpp
+	${CMAKE_SOURCE_DIR}/tiny-mov-library/TinyMovFileLibrary.hpp
 )
 
 # Include directories
