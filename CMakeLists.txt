@@ -16,7 +16,6 @@ endif()
 # Define source files
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/main.cpp
-
 )
 
 set(HEADERS
@@ -24,20 +23,25 @@ set(HEADERS
 	${CMAKE_SOURCE_DIR}/zraw-container/ZrawConverterThread.hpp 
 	${CMAKE_SOURCE_DIR}/zraw-container/ZrawNewExtractor.hpp
 	${CMAKE_SOURCE_DIR}/zraw-container/ZrawProcessingModel.hpp
-	${CMAKE_SOURCE_DIR}/tiny-mov-library/TinyMovFileLibrary.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/TinyMovFileLibrary.hpp
 	${CMAKE_SOURCE_DIR}/zraw-container/MovAvInfoDetect.hpp
-
+	${CMAKE_SOURCE_DIR}/zraw-container/IConsoleOutput.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/IProgressBar.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/ZRawProcess.hpp
+	${CMAKE_SOURCE_DIR}/zraw-container/Event.h 
 )
 
 # Include directories
 include_directories(
     ${CMAKE_SOURCE_DIR}/zraw-decoder-lib/install/include
     ${CMAKE_SOURCE_DIR}/tinydngloader
+	${CMAKE_SOURCE_DIR}/tinydngloader/examples/dngwriter
     ${CMAKE_SOURCE_DIR}/quick_arg_parser
+	${CMAKE_SOURCE_DIR}/zraw-container
 )
 
 # Create executable
-add_executable(zraw-decoder ${SOURCES})
+add_executable(zraw-decoder ${SOURCES} ${HEADERS})
 
 # Find OpenSSL
 set(OPENSSL_ROOT_DIR "F:/OpenSSL-Win64") # Update with the correct path

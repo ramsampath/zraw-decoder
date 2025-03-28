@@ -23,7 +23,7 @@ https://github.com/FFmpeg/FFmpeg/blob/master/libavformat/mov.c
 #include <inttypes.h>
 #include <sstream>
 
-#include <../tiny-mov-library/TinyMovFileLibrary.hpp>
+#include <TinyMovFileLibrary.hpp>
 
 #ifdef _WIN32
 #define fseek _fseeki64

@@ -4,8 +4,8 @@
 #include <queue>
 #include <mutex>
 
-#include "IConsoleOutput.hpp"
 #include <tiny_dng_writer.h>
+#include <IConsoleOutput.hpp>
 
 #define LIB_ZRAW_STATIC
 #include <libzraw.h>
@@ -92,7 +92,7 @@ protected:
     {
         std::vector<uint16_t> result(width * height / 4);
 
-        for (int y = 0; y < height; y += 4)
+        for (unsigned int y = 0; y < height; y += 4)
         {
             for (int x = 0; x < width; x += 4)
             {

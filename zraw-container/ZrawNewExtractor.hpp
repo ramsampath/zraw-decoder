@@ -102,6 +102,7 @@ public:
         ext_zraw.exists = false;
         for (int i = 0; i < mov.Tracks().size(); ++i)
         {
+            std::cout << "Num " << mov.Tracks().size() << std::endl;
             if (itsTimeToStopOkay)
             {
                 f_in.close();
@@ -111,44 +112,46 @@ public:
             auto& track = mov.Tracks()[i];
             if (track.Media().Type() != TinyMovTrackMedia::Type_t::Video)
             {
-                console.printf("Track #%d - not a video, skipped.\n", i);
+                printf("Track #%d - not a video, skipped.\n", i);
                 continue;
             }
 
             auto& desc_table = track.Media().Info().DescriptionTable().VideoDescriptionTable();
             if (desc_table.size() != 1)
             {
-                console.printf("Track #%d - wrong description table, skipped.\n", i);
+                printf("Track #%d - wrong description table, skipped.\n", i);
                 continue;
             }
 
             auto& desc = desc_table[0];
             if (desc.DataFormat() != MKTAG('z', 'r', 'a', 'w'))
             {
-                console.printf("Track #%d - not ZRAW, skipped.\n", i);
+                printf("Track #%d - not ZRAW, skipped.\n", i);
                 continue;
             }
 
-            console.printf("Track #%d\n", i);
+            printf("Track #%d\n", i);
 
             ext_zraw = desc.Ext_ZRAW();
             if (!ext_zraw.exists)
             {
-                console.printf("Track #%d - error! Track does not contain 'zraw' extension with version information! Skipped.\n", i);
+                printf("Track #%d - error! Track does not contain 'zraw' extension with version information! Skipped.\n", i);
                 continue;
             }
 
-            console.printf("ZRAW version = 0x%X (%s)\n", ext_zraw.version,
+            printf("ZRAW version = 0x%X (%s)\n", ext_zraw.version);
+            printf("%s", 
                 ext_zraw.version == 0x12EA78D2 ? "TRUE RAW" :
                 (ext_zraw.version == 0x45A32DEF ? "ENCRYPTED HEVC" : "UNKNOWN"));
 
-            console.printf("ZRAW unk0 = %d\n", ext_zraw.unk0);
-            console.printf("ZRAW unk1 = %d\n", ext_zraw.unk1);
+            printf("ZRAW unk0 = %d\n", ext_zraw.unk0);
+            printf("ZRAW unk1 = %d\n", ext_zraw.unk1);
 
             break;
         }
 
         ConversionResult subRes = Done;
+        printf("ZRAW Version - %d\n", ext_zraw.version);
         switch (ext_zraw.version)
         {
         case 0x12EA78D2:
@@ -272,7 +275,7 @@ protected:
                         if (_threads[th_index]->IsProcessingFrame() == false)
                         {
                             // Convert extracted ZRAW frame to DNG
-                            console.printf("Converting zraw frame #%d to DNG...\n", p);
+                            printf("Converting zraw frame #%d to DNG...\n", p);
                             progressBar.SetDescription("Converting zraw frame #%d to DNG...", p);
 
                             // Prepare parameters
@@ -355,6 +358,27 @@ protected:
 
     ConversionResult process_zraw_AESed(std::atomic<bool>& itsTimeToStopOkay, IConsoleOutput &console, IProgressBar& progressBar, std::istream &f_in, TinyMovFile &mov, std::string &output_path)
     {
+        // for firmwares 09.96 -> 0.98.2
+
+        // Load AES key (128-bit) and IV (16-byte)
+        unsigned char key[32] = { 0 }; // Replace with actual key
+        unsigned char aesKey[16] = {
+                0xCF, 0x55, 0x5B, 0xB7,
+                0xBF, 0x0E, 0x45, 0x6E,
+                0x94, 0x10, 0xD0, 0x15,
+                0xD7, 0x5F, 0xE3, 0x5B
+        };
+
+
+        // Define a 16-byte IV
+        unsigned char iv[16] = {
+            0x00, 0x01, 0x02, 0x03,
+            0x04, 0x05, 0x06, 0x07,
+            0x08, 0x09, 0x0A, 0x0B,
+            0x0C, 0x0D, 0x0E, 0x0F
+        };
+
+
         console.printf("Can't decode AESed version!\n");
         return NotImplemented;
     }

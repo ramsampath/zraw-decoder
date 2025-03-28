@@ -2,8 +2,12 @@
 
 #include <string>
 #include <fstream>
+#include <varargs.h>
+#include <map>
 
+#include <Event.h>
 #include <MovAvInfoDetect.hpp>
+#include <IProgressBar.hpp>
 
 #ifndef _MSC_VER
 #include <sys/stat.h>

@@ -5,3 +5,6 @@
 [submodule "tinydngloader"]
 	path = tinydngloader
 	url = https://github.com/syoyo/tinydngloader.git
+[submodule "zraw-decoder-lib"]
+	path = zraw-decoder-lib
+	url = https://github.com/ramsampath/zraw-decoder-lib.git
